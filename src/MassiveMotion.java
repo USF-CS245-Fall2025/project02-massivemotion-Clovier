@@ -1,7 +1,15 @@
-import javax.swing.*;
+/**
+ * @author Ty Van Heerden
+ * @since Oct. 10, 2025
+ * @version 1.0
+ */
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.Properties;
+import javax.swing.*;
 
 public class MassiveMotion extends JPanel implements ActionListener {
 
@@ -13,10 +21,23 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
 
     // public MassiveMotion(String propfile) {
+    //Reference Kode Java (https://kodejava.org/how-do-i-read-a-configuration-file-using-java-util-properties/)
     public MassiveMotion() {
-        // TODO: insert your code to read from configuration file here.
+        Properties prop = new Properties();
+        try {
+            String fileName = "MassiveMotion.txt";
 
-        tm = new Timer(75, this); // TODO: Replace the first argument with delay with value from config file.
+            InputStream fileInput = new FileInputStream(fileName);
+
+            prop.load(fileInput);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //get the values in prop that was read from .txt file
+        int timerDelay = Integer.parseInt(prop.getProperty("timer_delay"));
+
+        tm = new Timer(timerDelay, this);
 
         // TODO: Consider removing the next two lines (coordinates) for random starting locations.
         x1 = 100; y1 = 50;
@@ -61,7 +82,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");
-        jf.setSize(640, 480); // TODO: Replace with the size from configuration!
+        jf.setSize(1024, 768);
         jf.add(mm);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
