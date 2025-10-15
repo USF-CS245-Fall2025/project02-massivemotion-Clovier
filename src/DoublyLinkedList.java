@@ -12,69 +12,48 @@ public class DoublyLinkedList<T> implements List<T>{
         Node<T> previous;
         
         public Node(T value){
-            data = value;
-            next = null;
-            previous = null;
+            this.data = value;
+            this.next = null;
+            this.previous = null;
         }
     }
 
-    Node<T> head;
-    Node<T> tail;
-    int size;
+    private Node<T> head;
+    private Node<T> tail;
+    private int size;
 
     public DoublyLinkedList(){
-        head = null;
-        tail = null;
-        size = 0;
+        this.head = null;
+        this.tail = null;
+        this.size = 0;
     }
 
     @Override
     public int size(){
-        return size;
-    }
-
-    @Override
-    public boolean add(T element){
-        return addAtEnd(element);
+        return this.size;
     }
 
     /**
-     * reference https://www.geeksforgeeks.org/dsa/introduction-to-doubly-linked-lists-in-java/)
      * this function inserts node at the the end of the list, similar to the traditional add function in singly LinkedList
+     * 
      * @param element the item to add to the end of the container
      * @return
      */
-    private boolean addAtEnd(T element){
+    @Override
+    public boolean add(T element){
         Node<T> node = new Node<>(element);
-        if (head == null){
-            head = node;
-            tail = node;
-            ++size;
-            return true;    
-        }
-        tail.next = node;
-        node.previous = tail;
-        tail = node; 
-        ++size;
-
+        if (this.head == null){
+            this.head = node;
+            this.tail = node;   
+        }else{
+            this.tail.next = node;
+            node.previous = this.tail;
+            this.tail = node;
+        }  
+        ++this.size;
         return true;
     }
 
-    private boolean addAtFront(T element){
-        Node<T> node = new Node<>(element);
-        if (head == null){
-            head = node;
-            tail = node;
-            ++size;
-            return true;
-        }
-        head.previous = node;
-        node.next = head;
-        head = node;
-        ++size;
-
-        return true;
-    }
 
     @Override
     public void add(int index, T element) throws Exception{
@@ -82,22 +61,26 @@ public class DoublyLinkedList<T> implements List<T>{
             throw new Exception("Invalid position");
         }
 
+        Node<T> node = new Node<>(element);
         if (index == 0){
-            addAtFront(element);
+            node.next = this.head;
+            this.head.previous = node;
+            this.head = node;
         }else if (index == size){
-            addAtEnd(element);
+            node.previous = this.tail;
+            this.tail.next = node;
+            this.tail = node;
         }else{
             Node<T> current = head;
             for (int i = 0; i < index - 1; i++){
                 current = current.next;
             }
-            Node<T> node = new Node<>(element);
             node.next = current.next;
             node.previous = current;
             current.next.previous = node;
             current.next = node;
-            ++size;
-        }     
+        }
+        ++this.size;     
     }
 
     @Override

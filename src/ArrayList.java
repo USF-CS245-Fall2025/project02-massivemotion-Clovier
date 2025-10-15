@@ -5,27 +5,30 @@
  */
 
 /**
- * This class represents ArrayList and its' functions discussed in class 
+ * Array list implementation
  * implements List interface 
  */
 public class ArrayList<T> implements List<T>{
 
-    T arr[];
-    int size;
+    private T[] arr;
+    private int size;
+
+    //constructor referenced from lecture slides
+    public ArrayList(){
+        this.arr = (T[]) new Object[10];
+        this.size = 0;
+    }
 
     /**
-     * This represents the grow array function
-     * it increases the size of the arr when necessary
-     * how it works is that it creates a temp size array by x2
-     * copies all the elements into the temp array 
-     * set a new reference from arr to new_arr
+     * This represents the grow array function, it increases the size of the arr when necessary
+     * grow_array method referenced from slides
      */
-    protected void grow_array(){
-        T[] new_arr = (T[]) new Object[arr.length * 2];
-        for (int i = 0; i < arr.length; i++){
-            new_arr[i] = arr[i];
+    private void grow_array(){
+        T[] new_arr = (T[]) new Object[this.arr.length * 3 / 2 + 1];
+        for (int i = 0; i < this.arr.length; i++){
+            new_arr[i] = this.arr[i];
         }
-        arr = new_arr;
+        this.arr = new_arr;
     }
 
     /**
@@ -34,7 +37,7 @@ public class ArrayList<T> implements List<T>{
      */
     @Override
     public int size(){
-        return size;
+        return this.size;
     }
 
     /**
@@ -45,19 +48,19 @@ public class ArrayList<T> implements List<T>{
      */
     @Override
     public void add(int index, T element) throws Exception{
-        if (index < 0 || index >= size){
-            throw new Exception("Invalid position");
+        if (index < 0 || index > this.size){
+            throw new Exception("Invalid add position");
         }
 
-        if (size == arr.length - 1){
+        if (this.size == this.arr.length){
             grow_array();
         }
 
-        for (int i = size; i > index; i--){
-            arr[i] = arr[i - 1];
+        for (int i = this.size; i > index; i--){
+            this.arr[i] = this.arr[i - 1];
         }
-        arr[index] = element;
-        ++size;
+        this.arr[index] = element;
+        ++this.size;
     }
 
     /**
@@ -67,10 +70,10 @@ public class ArrayList<T> implements List<T>{
      */
     @Override
     public boolean add(T element){
-        if (size == arr.length - 1){
+        if (this.size == this.arr.length){
             grow_array();
         }
-        arr[size++] = element;
+        this.arr[size++] = element;
         return true;
     } 
 
@@ -81,10 +84,10 @@ public class ArrayList<T> implements List<T>{
      */
     @Override
     public T get(int index) throws Exception{
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= this.size){
             throw new Exception("Invalid position");  
         }
-        return arr[index];
+        return this.arr[index];
     }
 
     /**
@@ -94,16 +97,14 @@ public class ArrayList<T> implements List<T>{
      */
     @Override
     public T remove(int index) throws Exception{
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= this.size){
             throw new Exception("Invalid position");
         }
-        T temp = arr[index];
-        for (int i = index; i < arr.length - 1; i++){
-            arr[i] = arr[i + 1];
+        T temp = this.arr[index];
+        for (int i = index; i < this.size - 1; i++){
+            this.arr[i] = this.arr[i + 1];
         }
-        size--;
+        this.size--;
         return temp;
     }
-
-    
 }
