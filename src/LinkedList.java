@@ -17,7 +17,7 @@ public class LinkedList<T> implements List<T>{
      * Each node stores some type of data and a reference pointer to the next node
      * Code below referenced from lecture slides with modifications made
      */
-    private class Node<T>{
+    static class Node<T>{
         T data;
         Node<T> next; 
 
