@@ -8,6 +8,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.URL;
+import java.util.Objects;
 import java.util.Properties;
 import javax.swing.*;
 
@@ -25,11 +27,14 @@ public class MassiveMotion extends JPanel implements ActionListener {
     public MassiveMotion() {
         Properties prop = new Properties();
         try {
-            String fileName = "MassiveMotion.txt";
+            String fileName = "MassiveMotion.config";
+            ClassLoader classLoader = Properties.class.getClassLoader();
 
-            InputStream fileInput = new FileInputStream(fileName);
+            URL res = Objects.requireNonNull(classLoader.getResource(fileName), "Can't find configuration file MassiveMotion.config");
 
-            prop.load(fileInput);
+            InputStream is = new FileInputStream(res.getFile());
+
+            prop.load(is);
         } catch (IOException e) {
             e.printStackTrace();
         }

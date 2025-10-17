@@ -5,7 +5,7 @@
  */
 
  /**
-  * DummyHead Linked List class representing a singly linked list that uses a dummy head node to take advantage of simplicity in add and remove methods (no edge cases needed).
+  * DummyHead Linked List class representing a singly linked list that uses a dummy head node to take advantage of the simiplicity in its' add and remove methods (no edge cases needed).
   * 
   *@param <T> the type of elements that's stored in the list
   */

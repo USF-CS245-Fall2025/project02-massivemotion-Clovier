@@ -7,13 +7,13 @@
 
  /**
   * Singly linked list implementation implementing generic List interface
-
-  @param <T> the type of elements that's stored in the list
+  *
+  *@param <T> the type of elements that's stored in the list
   */
 public class LinkedList<T> implements List<T>{
     
     /**
-     * Private inner class that represents the attributes of a single node in the linked list.
+     * Static inner class that represents the attributes of a single node in the linked list.
      * Each node stores some type of data and a reference pointer to the next node
      * Code below referenced from lecture slides with modifications made
      */
