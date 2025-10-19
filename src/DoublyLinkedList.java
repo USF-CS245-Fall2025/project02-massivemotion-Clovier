@@ -192,6 +192,7 @@ public class DoublyLinkedList<T> implements List<T>{
         this.head = this.head.next;
         this.head.previous = null;
         node.next = null;
+        node.previous = null;
         --this.size;
         return node.data;
     }
@@ -213,6 +214,7 @@ public class DoublyLinkedList<T> implements List<T>{
 
         this.tail = this.tail.previous;
         this.tail.next = null;
+        node.next = null;
         node.previous = null;
         --this.size;
         return node.data;

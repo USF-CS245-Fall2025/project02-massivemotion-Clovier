@@ -7,7 +7,7 @@
 import java.awt.Color;
 
 /**
- * This class represents a single "celestial" used in this project.
+ * This class represents the "celestial" objects used in this project.
  * Stores position x, y (in pixels), the velocity (pixels per update), the size, as well as the color of the star.
  * 
  *      
