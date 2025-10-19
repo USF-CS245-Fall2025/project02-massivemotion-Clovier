@@ -6,8 +6,4 @@ In my Massive Motion project, I implemented different parts which include: custo
 
 From each of the list implementations, I believe the ArrayList was the most efficient choice for manging the celestial objects in this simulation project. The main tasks are to get, add, and remove. Yes, while I understand that the add and remove operations have similar time complexities across all list types, and that when you add an item, it's added to the end of the list, and O(n) for removing due to shifting or traversal. However, the get operation is significantly faster in the ArrayList. Getting an element by index in an ArrayList takes O(1) time, whereas LinkedList requires O(n) traversal to reach the same position. Since the simulation is constantly getting bodies by index during each frame update, I thought that using an ArrayList was the most efficient.  
 
-To run the program, you have to navigate to the source directory in the terminal. Then compile and execute the program using:
-
-javac MassiveMotion.java
-
-java MassiveMotion MassiveMotion.config
+To run the program, you have to navigate to the source directory in the terminal. Then compile using javac MassiveMotion.java, then execute the program by java MassiveMotion MassiveMotion.config
