@@ -17,7 +17,7 @@ import javax.swing.*;
 /**
  * This class simulates a 2-dimensional space with celestial objects in motion within a 2D canvas
  * 
- * WARNING: if you think the stars are "colliding" with each other, that's just an illusion. It's actually a 3d space, so these stars are overlapping & as they pass different depths
+ * WARNING: if you think the stars are "colliding" with each other, that's just an illusion. It's actually a 3d space, so these stars are overlapping as they pass different depths
  */
 public class MassiveMotion extends JPanel implements ActionListener {
 
