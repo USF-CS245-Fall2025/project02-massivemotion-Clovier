@@ -4,15 +4,21 @@
  * @version 1.0
  */
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Random;
-import javax.swing.*;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  * This class simulates a 2-dimensional space with celestial objects in motion within a 2D canvas
@@ -44,7 +50,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
      * 
      * @param propfile the name of the configuration file (MassiveMotion.config)
      */
-    //
+    
     public MassiveMotion(String propfile) {
         Properties prop = new Properties();
         try {
@@ -59,25 +65,25 @@ public class MassiveMotion extends JPanel implements ActionListener {
             prop.load(is);
 
             // Get and assign values that was read from .config file
-            this.timer_delay = Integer.parseInt(prop.getProperty("timer_delay", "75"));
-            this.window_size_x = Integer.parseInt(prop.getProperty("window_size_x", "1024"));
-            this.window_size_y = Integer.parseInt(prop.getProperty("window_size_y", "768"));
-            this.star_position_x = Integer.parseInt(prop.getProperty("star_position_x", "512"));
-            this.star_position_y = Integer.parseInt(prop.getProperty("star_position_y", "384"));
-            this.star_size = Integer.parseInt(prop.getProperty("star_size", "30"));
-            this.star_velocity_x = Integer.parseInt(prop.getProperty("star_velocity_x", "0"));
-            this.star_velocity_y = Integer.parseInt(prop.getProperty("star_velocity_y", "0"));
-            this.gen_x = Double.parseDouble(prop.getProperty("gen_x", "0.06"));
-            this.gen_y = Double.parseDouble(prop.getProperty("gen_y", "0.06"));
-            this.body_size = Integer.parseInt(prop.getProperty("body_size", "10"));
-            this.body_velocity = Integer.parseInt(prop.getProperty("body_velocity", "3"));
+            this.timer_delay = Integer.parseInt(prop.getProperty("timer_delay"));
+            this.window_size_x = Integer.parseInt(prop.getProperty("window_size_x"));
+            this.window_size_y = Integer.parseInt(prop.getProperty("window_size_y"));
+            this.star_position_x = Integer.parseInt(prop.getProperty("star_position_x"));
+            this.star_position_y = Integer.parseInt(prop.getProperty("star_position_y"));
+            this.star_size = Integer.parseInt(prop.getProperty("star_size"));
+            this.star_velocity_x = Integer.parseInt(prop.getProperty("star_velocity_x"));
+            this.star_velocity_y = Integer.parseInt(prop.getProperty("star_velocity_y"));
+            this.gen_x = Double.parseDouble(prop.getProperty("gen_x"));
+            this.gen_y = Double.parseDouble(prop.getProperty("gen_y"));
+            this.body_size = Integer.parseInt(prop.getProperty("body_size"));
+            this.body_velocity = Integer.parseInt(prop.getProperty("body_velocity"));
             this.random = new Random();
 
             // Initialize timer
             this.tm = new Timer(timer_delay, this);
 
             // Initialize the list structure based on what's in the configuration file
-            this.listRealisations = prop.getProperty("list", "arraylist");
+            this.listRealisations = prop.getProperty("list");
             if (listRealisations.equalsIgnoreCase("arraylist")){
                 this.bodies = new ArrayList<>();
             }else if (listRealisations.equalsIgnoreCase("linkedlist")){
@@ -107,7 +113,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
                 CelestialBody body = this.bodies.get(i);
 
                 g.setColor(body.color);
-                g.fillOval(body.x, body.y, body.size * 2, body.size *2);
+                g.fillOval(body.x, body.y, body.size, body.size);
             }
         } catch (Exception e) {
             System.err.println("An error has occurred trying to paint components in body");
@@ -235,7 +241,7 @@ public class MassiveMotion extends JPanel implements ActionListener {
 
         JFrame jf = new JFrame();
         jf.setTitle("Massive Motion");
-        jf.setSize(1024, 768);
+        jf.setSize(mm.window_size_x, mm.window_size_y); //Fixed: Replaced to fit with config.
         jf.add(mm);
         jf.setVisible(true);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
